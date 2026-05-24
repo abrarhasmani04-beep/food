@@ -13,8 +13,9 @@ const Profile = () => {
   })
   
   useEffect(()=>{
-    axios.get('http://localhost:9000/api/food-partner')
-  },[])
+    axios.get(`http://localhost:9000/api/food-partner/${id}`,{withCredentials:true})
+    .then((res)=>setProfile(res.data.foodPartner))
+  },[id])
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -30,8 +31,8 @@ const Profile = () => {
 
           {/* Business Info */}
           <div>
-            <h2 className="text-lg font-semibold">Business Name</h2>
-            <p className="text-sm text-gray-400">Address goes here</p>
+            <h2 className="text-lg font-semibold">{profile?.name}</h2>
+            <p className="text-sm text-gray-400">{profile?.address}</p>
           </div>
 
         </div>
@@ -41,12 +42,12 @@ const Profile = () => {
 
           <div>
             <p className="text-sm text-gray-400">Total Meals</p>
-            <p className="font-bold text-lg">43</p>
+            <p className="font-bold text-lg">{profile?.totalMeals}</p>
           </div>
 
           <div>
             <p className="text-sm text-gray-400">Customers</p>
-            <p className="font-bold text-lg">15K</p>
+            <p className="font-bold text-lg">{profile?.customerServed}</p>
           </div>
 
         </div>
